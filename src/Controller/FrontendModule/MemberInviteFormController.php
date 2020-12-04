@@ -139,7 +139,7 @@ class MemberInviteFormController extends AbstractFrontendModuleController
             // Send notification
             if (!empty($model->nc_notification) && null !== ($notification = Notification::findByPk($model->nc_notification))) {
                 $tokens = [
-                    'invite_url' => $this->buildInviteUrl($invite, $model, $request),
+                    'invite_link' => $this->buildInviteUrl($invite, $model, $request),
                     'admin_email' => $GLOBALS['TL_ADMIN_EMAIL'],
                 ];
 

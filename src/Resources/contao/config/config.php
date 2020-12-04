@@ -15,7 +15,7 @@ use InspiredMinds\ContaoMemberInvites\Model\MemberInviteModel;
 $GLOBALS['BE_MOD']['accounts']['member']['tables'][] = 'tl_member_invite';
 $GLOBALS['TL_MODELS']['tl_member_invite'] = MemberInviteModel::class;
 
-$tokensContent = ['member_*', 'invite_*', 'invite_url', 'admin_email'];
+$tokensContent = ['member_*', 'invite_*', 'invite_link', 'admin_email'];
 $tokensAddress = ['admin_email', 'member_*', 'invite_*'];
 
 $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['member_invites']['member_invite'] = [
@@ -30,7 +30,7 @@ $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['member_invites']['member_i
     'email_replyTo' => $tokensAddress,
 ];
 
-$tokensContent = ['member_*', 'invite_*', 'resend_url', 'admin_email'];
+$tokensContent = ['member_*', 'invite_*', 'resend_link', 'admin_email'];
 $tokensAddress = ['admin_email', 'member_*', 'invite_*'];
 
 $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['member_invites']['member_invite_request'] = [

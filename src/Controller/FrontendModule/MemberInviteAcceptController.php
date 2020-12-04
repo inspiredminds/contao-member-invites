@@ -76,7 +76,7 @@ class MemberInviteAcceptController extends AbstractFrontendModuleController
             if ($form->validate()) {
                 if (!empty($model->nc_notification) && null !== ($notification = Notification::findByPk($model->nc_notification))) {
                     $tokens = [
-                        'resend_url' => $this->buildResendUrl($invite, $model, $request),
+                        'resend_link' => $this->buildResendUrl($invite, $model, $request),
                         'admin_email' => $GLOBALS['TL_ADMIN_EMAIL'],
                     ];
 
