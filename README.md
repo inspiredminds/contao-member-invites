@@ -31,7 +31,6 @@ The notification could look like this for example:
 
 <img src="https://github.com/inspiredminds/contao-member-invites/raw/main/notification-member-invite.png" width="442" alt="Member invite notification">
 
-
 #### Request another invitation
 
 This notification will be selected in the _Member invite accept_ module and is sent when an invite has expired and the recpient requests another invitation in the front end. The following simple tokens are available within the notification:
@@ -43,6 +42,12 @@ This notification will be selected in the _Member invite accept_ module and is s
 The notification could look like this for example:
 
 <img src="https://github.com/inspiredminds/contao-member-invites/raw/main/notification-request-another-invitation.png" width="442" alt="Request another invitation notification">
+
+#### Member registration
+
+This notification is not part of this extension, but this extension provides an additional token that can be used for the notification that is sent when a new member registers on the site:
+
+* `##backend_link##`: This provides a link to the edit view of the newly registered member in the backend. This can be used for notifications about new registrations to the site's administrator.
 
 ### Modules
 
@@ -82,4 +87,4 @@ If the invite link is otherwise invalid, a message will be shown:
 
 ## Attributions
 
-This extension was funded by the [austrian society for artificial intelligence (ASAI)](https://www.asai.ac.at/) with the Austrian [Federal Ministry for Climate Action, Environment, Energy, Mobility, Innovation and Technology (BMK)](https://www.bmk.gv.at/) as the public funding body.
+Developtment of this extension was funded by the [austrian society for artificial intelligence (ASAI)](https://www.asai.ac.at/) with the Austrian [Federal Ministry for Climate Action, Environment, Energy, Mobility, Innovation and Technology (BMK)](https://www.bmk.gv.at/) as the public funding body.
