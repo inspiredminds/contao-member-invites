@@ -16,7 +16,6 @@ use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController
 use Contao\CoreBundle\Exception\AccessDeniedException;
 use Contao\CoreBundle\ServiceAnnotation\FrontendModule;
 use Contao\FrontendUser;
-use Contao\MemberModel;
 use Contao\ModuleModel;
 use Contao\PageModel;
 use Contao\System;
@@ -110,7 +109,7 @@ class MemberInviteFormController extends AbstractFrontendModuleController
                 throw new \Exception($this->translator->trans('ERR.unique', [], 'contao_default'));
             }
 
-            if (null !== MemberModel::findBy(['email = ?', "status = '".MemberInviteModel::STATUS_ACCEPTED."'"], [strtolower($value)])) {
+            if (null !== MemberInviteModel::findBy(['email = ?', "status = '".MemberInviteModel::STATUS_ACCEPTED."'"], [strtolower($value)])) {
                 throw new \Exception($this->translator->trans('ERR.unique', [], 'contao_default'));
             }
 

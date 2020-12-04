@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace InspiredMinds\ContaoMemberInvites\EventListener;
 
+use Contao\Controller;
 use Contao\CoreBundle\Routing\ScopeMatcher;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
 use InspiredMinds\ContaoMemberInvites\Model\MemberInviteModel;
@@ -54,6 +55,8 @@ class PreFillRegistrationModuleListener
         if (null === $invite || MemberInviteModel::STATUS_INVITED !== $invite->status) {
             return;
         }
+
+        Controller::loadDataContainer('tl_member_invite');
 
         $memberFields = &$GLOBALS['TL_DCA']['tl_member']['fields'];
         $inviteFields = &$GLOBALS['TL_DCA']['tl_member_invite']['fields'];

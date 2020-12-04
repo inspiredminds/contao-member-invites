@@ -140,7 +140,7 @@ $GLOBALS['TL_DCA']['tl_member_invite'] = [
             ],
             'reference' => &$GLOBALS['TL_LANG']['tl_member_invite']['statuses'],
             'eval' => ['tl_class' => 'w50'],
-            'sql' => ['type' => 'string', 'length' => 8, 'default' => MemberInviteModel::STATUS_INVITED],
+            'sql' => ['type' => 'string', 'length' => 16, 'default' => MemberInviteModel::STATUS_INVITED],
         ],
         'member' => [
             'exclude' => true,
