@@ -1,0 +1,3 @@
+contao_member_invites:
+    resource: "@ContaoMemberInvitesBundle/Action"
+    type: annotation

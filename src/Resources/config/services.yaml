@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        bind:
+            $tokenName: '%contao.csrf_token_name%'
+            $tokenManager: '@contao.csrf.token_manager'
+    
+    InspiredMinds\ContaoMemberInvites\:
+        resource: ../../
+        exclude: ../../{ContaoManager,Resources}
+
+    InspiredMinds\ContaoMemberInvites\Action\:
+        resource: ../../Action
+        public: true

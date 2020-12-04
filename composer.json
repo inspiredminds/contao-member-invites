@@ -1,0 +1,43 @@
+{
+    "name": "inspiredminds/contao-member-invites",
+    "description": "This Contao extension allows members of your site to send and review invites.",
+    "type": "contao-bundle",
+    "homepage": "https://github.com/inspiredminds/contao-member-invites",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Fritz Michael Gschwantner",
+            "homepage": "http://www.inspiredminds.at",
+            "email": "fmg@inspiredminds.at",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/inspiredminds/contao-member-invites/issues",
+        "source": "https://github.com/inspiredminds/contao-member-invites"
+    },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/fritzmg"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "contao/core-bundle": "^4.9",
+        "codefog/contao-haste": "^4.24",
+        "ramsey/uuid": "^3.0 || ^4.0",
+        "terminal42/notification_center": "^1.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "InspiredMinds\\ContaoMemberInvites\\": "src/"
+        }
+    },
+    "extra": {
+        "contao-manager-plugin": "InspiredMinds\\ContaoMemberInvites\\ContaoManager\\Plugin"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16"
+    }
+}
