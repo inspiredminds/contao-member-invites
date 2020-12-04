@@ -79,3 +79,7 @@ If the invite link expired, a button to request another invitation will be shown
 If the invite link is otherwise invalid, a message will be shown:
 
 <img src="https://github.com/inspiredminds/contao-member-invites/raw/main/frontend-member-invite-accept-1.png" width="343" alt="Member invite accept module registration form">
+
+## Attributions
+
+This extension was funded by the [austrian society for artificial intelligence (ASAI)](https://www.asai.ac.at/) with the Austrian [Federal Ministry for Climate Action, Environment, Energy, Mobility, Innovation and Technology (BMK)](https://www.bmk.gv.at/) as the public funding body.
