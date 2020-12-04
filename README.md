@@ -1,3 +1,6 @@
+[![](https://img.shields.io/packagist/v/inspiredminds/contao-member-invites.svg)](https://packagist.org/packages/inspiredminds/contao-member-invites)
+[![](https://img.shields.io/packagist/dt/inspiredminds/contao-member-invites.svg)](https://packagist.org/packages/inspiredminds/contao-member-invites)
+
 Contao Member Invites
 =====================
 
