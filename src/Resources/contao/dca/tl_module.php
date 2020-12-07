@@ -22,7 +22,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['member_invite_expiration'] = [
     'options' => ['+1 day', '+7 days', '+30 days', '+1 year'],
     'reference' => &$GLOBALS['TL_LANG']['tl_module']['member_invite_expiration_durations'],
     'eval' => ['tl_class' => 'w50'],
-    'sql' => ['type' => 'string', 'maxlength' => 32, 'default' => '+30 days'],
+    'sql' => ['type' => 'string', 'length' => 16, 'default' => '+30 days'],
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['member_invite_registration_module'] = [
