@@ -90,4 +90,4 @@ If the invite link is otherwise invalid, a message will be shown:
 
 ## Attributions
 
-Developtment of this extension was funded by the [austrian society for artificial intelligence (ASAI)](https://www.asai.ac.at/) with the Austrian [Federal Ministry for Climate Action, Environment, Energy, Mobility, Innovation and Technology (BMK)](https://www.bmk.gv.at/) as the public funding body.
+Development of this extension was funded by the [austrian society for artificial intelligence (ASAI)](https://www.asai.ac.at/) with the Austrian [Federal Ministry for Climate Action, Environment, Energy, Mobility, Innovation and Technology (BMK)](https://www.bmk.gv.at/) as the public funding body.
