@@ -82,7 +82,7 @@ class MemberInviteFormController extends AbstractFrontendModuleController
                 throw new AccessDeniedException('Invite belongs to different member.');
             }
 
-            if ('expired' !== $invite->status || time() > $invite->date_expire) {
+            if ('expired' !== $invite->status || time() < $invite->date_expire) {
                 throw new BadRequestHttpException('Invite cannot be resent.');
             }
 
@@ -96,6 +96,10 @@ class MemberInviteFormController extends AbstractFrontendModuleController
             // Set email field to readonly in resend mode
             if ($isResend && 'email' === $field) {
                 $config['eval']['readonly'] = true;
+            }
+
+            if (!$isResend) {
+                $config['ignoreModelValue'] = true;
             }
 
             return $config['eval']['feEditable'] ?? false;
