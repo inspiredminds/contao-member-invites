@@ -82,7 +82,7 @@ class MemberInviteFormController extends AbstractFrontendModuleController
                 throw new AccessDeniedException('Invite belongs to different member.');
             }
 
-            if ('expired' !== $invite->status || time() < $invite->date_expire) {
+            if (!$invite->canResend()) {
                 throw new BadRequestHttpException('Invite cannot be resent.');
             }
 
@@ -137,6 +137,7 @@ class MemberInviteFormController extends AbstractFrontendModuleController
             $invite->status = MemberInviteModel::STATUS_INVITED;
             $invite->date_expire = strtotime($model->member_invite_expiration);
             $invite->uuid = Uuid::uuid4()->toString();
+            $invite->count = (int) $invite->count + 1;
 
             $invite->save();
 

@@ -40,4 +40,13 @@ class MemberInviteModel extends Model
     public const STATUS_REQUESTED = 'requested';
 
     protected static $strTable = 'tl_member_invite';
+
+    public function canResend(): bool
+    {
+        if (\in_array($this->status, [self::STATUS_ACCEPTED, self::STATUS_OTHER], true)) {
+            return false;
+        }
+
+        return true;
+    }
 }

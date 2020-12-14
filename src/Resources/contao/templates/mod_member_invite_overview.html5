@@ -1,0 +1,36 @@
+<?= $this->extend('block_unsearchable'); ?>
+
+<?php $this->block('content'); ?>
+
+  <?php if ($this->invites): ?>
+    <table>
+     <thead>
+       <tr>
+        <th><?= $this->trans('MSC.inviters') ?></th>
+        <th><?= $this->trans('tl_member_invite.firstname.0') ?></th>
+        <th><?= $this->trans('tl_member_invite.lastname.0') ?></th>
+        <th><?= $this->trans('tl_member_invite.email.0') ?></th>
+        <th><?= $this->trans('tl_member_invite.count.0') ?></th>
+       </tr>
+     </thead>
+     <tbody>
+      <?php foreach ($this->invites as $invite): ?>
+        <tr>
+          <td>
+            <ul>
+              <?php foreach ($invite->inviters as $inviter): ?>
+                <li>#<?= $inviter->id ?> (<?= $inviter->count ?>)</li>
+              <?php endforeach; ?>
+            </ul>
+          </td>
+          <td><?= $invite->firstname ?></td>
+          <td><?= $invite->lastname ?></td>
+          <td><?= $invite->email ?></td>
+          <td><?= $invite->count ?></td>
+        </tr>
+      <?php endforeach; ?>
+     </tbody>
+    </table>
+  <?php endif; ?>
+
+<?php $this->endblock(); ?>

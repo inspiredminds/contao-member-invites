@@ -88,6 +88,14 @@ If the invite link is otherwise invalid, a message will be shown:
 
 <img src="https://github.com/inspiredminds/contao-member-invites/raw/main/frontend-member-invite-accept-1.png" width="343" alt="Member invite accept module registration form">
 
+#### Member invite table
+
+This module will display all the invites sent by the currently logged in member. It will include a link to send an invite again. The link will either point to the current page or the redirect page.
+
+#### Member invite overview
+
+This module will dispaly all the invites in the system in the front end.
+
 ## Attributions
 
 Development of this extension was funded by the [austrian society for artificial intelligence (ASAI)](https://www.asai.ac.at/) with the Austrian [Federal Ministry for Climate Action, Environment, Energy, Mobility, Innovation and Technology (BMK)](https://www.bmk.gv.at/) as the public funding body.

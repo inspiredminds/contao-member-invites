@@ -23,7 +23,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": "^7.2 || ^8.0",
         "contao/core-bundle": "^4.9",
         "codefog/contao-haste": "^4.24",
         "ramsey/uuid": "^3.0 || ^4.0",

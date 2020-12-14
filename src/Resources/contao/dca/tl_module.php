@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 use InspiredMinds\ContaoMemberInvites\Controller\FrontendModule\MemberInviteAcceptController;
 use InspiredMinds\ContaoMemberInvites\Controller\FrontendModule\MemberInviteFormController;
+use InspiredMinds\ContaoMemberInvites\Controller\FrontendModule\MemberInviteOverview;
+use InspiredMinds\ContaoMemberInvites\Controller\FrontendModule\MemberInviteTable;
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['nc_notification']['eval']['ncNotificationChoices'][MemberInviteFormController::TYPE] = ['member_invite'];
 $GLOBALS['TL_DCA']['tl_module']['fields']['nc_notification']['eval']['ncNotificationChoices'][MemberInviteAcceptController::TYPE] = ['member_invite_request'];
@@ -39,4 +41,12 @@ $GLOBALS['TL_DCA']['tl_module']['palettes'][MemberInviteFormController::TYPE] =
 
 $GLOBALS['TL_DCA']['tl_module']['palettes'][MemberInviteAcceptController::TYPE] =
     '{title_legend},name,headline,type;{config_legend},nc_notification,member_invite_registration_module;{redirect_legend},jumpTo;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
+;
+
+$GLOBALS['TL_DCA']['tl_module']['palettes'][MemberInviteTable::TYPE] =
+    '{title_legend},name,headline,type;{redirect_legend},jumpTo;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
+;
+
+$GLOBALS['TL_DCA']['tl_module']['palettes'][MemberInviteOverview::TYPE] =
+    '{title_legend},name,headline,type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
 ;

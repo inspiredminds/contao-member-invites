@@ -17,3 +17,5 @@ $GLOBALS['TL_LANG']['MSC']['invalidInviteLink'] = 'Invalid invite link.';
 $GLOBALS['TL_LANG']['MSC']['inviteLinkExpired'] = 'This invite link has expired. You can request another invite link from the sender.';
 $GLOBALS['TL_LANG']['MSC']['requestInvite'] = 'Request invite';
 $GLOBALS['TL_LANG']['MSC']['inviteLinkRequestSent'] = 'The invite link request has been sent.';
+$GLOBALS['TL_LANG']['MSC']['inviteAgain'] = 'Invite again';
+$GLOBALS['TL_LANG']['MSC']['inviters'] = 'Inviters';

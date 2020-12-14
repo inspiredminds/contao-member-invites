@@ -150,8 +150,14 @@ $GLOBALS['TL_DCA']['tl_member_invite'] = [
             'sql' => ['type' => 'integer', 'unsigned' => true, 'default' => 0],
             'relation' => ['type' => 'hasOne', 'load' => 'lazy'],
         ],
+        'count' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['tl_class' => 'w50', 'rgxp' => 'digit'],
+            'sql' => ['type' => 'integer', 'unsigned' => true, 'default' => 0],
+        ],
     ],
     'palettes' => [
-        'default' => '{invite_legend},sender,email,firstname,lastname,message,date_invited,date_accepted,date_expire,status,member',
+        'default' => '{invite_legend},sender,email,firstname,lastname,message,date_invited,date_accepted,date_expire,status,member,count',
     ],
 ];

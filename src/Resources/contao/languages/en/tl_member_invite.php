@@ -30,3 +30,4 @@ $GLOBALS['TL_LANG']['tl_member_invite']['statuses'][MemberInviteModel::STATUS_OT
 $GLOBALS['TL_LANG']['tl_member_invite']['statuses'][MemberInviteModel::STATUS_EXPIRED] = 'Expired';
 $GLOBALS['TL_LANG']['tl_member_invite']['statuses'][MemberInviteModel::STATUS_REQUESTED] = 'Requested';
 $GLOBALS['TL_LANG']['tl_member_invite']['member'] = ['Member', 'Invited member.'];
+$GLOBALS['TL_LANG']['tl_member_invite']['count'] = ['Count', 'Invite count.'];
