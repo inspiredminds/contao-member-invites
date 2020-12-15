@@ -82,6 +82,7 @@ class MemberInviteOverview extends AbstractFrontendModuleController
             }
 
             $record->inviters = $inviters ?: [];
+            $record->status = MemberInviteModel::STATUS_OTHER === $record->status ? MemberInviteModel::STATUS_ACCEPTED : $record->status;
             $records[] = $record;
         }
 

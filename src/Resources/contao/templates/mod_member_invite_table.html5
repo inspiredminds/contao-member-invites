@@ -6,23 +6,25 @@
     <table>
      <thead>
        <tr>
-        <th><?= $this->trans('tl_member_invite.firstname.0') ?></th>
-        <th><?= $this->trans('tl_member_invite.lastname.0') ?></th>
-        <th><?= $this->trans('tl_member_invite.email.0') ?></th>
-        <th><?= $this->trans('tl_member_invite.count.0') ?></th>
-        <th><?= $this->trans('tl_member_invite.date_invited.0') ?></th>
-        <th><?= $this->trans('MSC.inviteAgain') ?></th>
+        <th class="firstname"><span class="firstname"><?= $this->trans('tl_member_invite.firstname.0') ?></span></th>
+        <th class="lastname"><span class="lastname"><?= $this->trans('tl_member_invite.lastname.0') ?></span></th>
+        <th class="email"><span class="email"><?= $this->trans('tl_member_invite.email.0') ?></span></th>
+        <th class="count"><span class="count"><?= $this->trans('tl_member_invite.count.0') ?></span></th>
+        <th class="date"><span class="date"><?= $this->trans('tl_member_invite.date_invited.0') ?></span></th>
+        <th class="status"><span class="status"><?= $this->trans('tl_member_invite.status.0') ?></span></th>
+        <th class="link"><span class="link"><?= $this->trans('MSC.inviteAgain') ?></span></th>
        </tr>
      </thead>
      <tbody>
       <?php foreach ($this->invites as $invite): ?>
         <tr>
-          <td><?= $invite->firstname ?></td>
-          <td><?= $invite->lastname ?></td>
-          <td><?= $invite->email ?></td>
-          <td><?= $invite->count ?></td>
-          <td><?= $invite->date_invited ?></td>
-          <td><?php if ($invite->link): ?><a href="<?= $invite->link ?>"><?= $this->trans('MSC.inviteAgain') ?></a><?php endif; ?></td>
+          <td class="firstname"><span class="firstname"><?= $invite->firstname ?></span></td>
+          <td class="lastname"><span class="lastname"><?= $invite->lastname ?></span></td>
+          <td class="email"><span class="email"><?= $invite->email ?></span></td>
+          <td class="count"><span class="count"><?= $invite->count ?></span></td>
+          <td class="date"><span class="date"><?= $invite->date_invited ?></span></td>
+          <td class="status"><span class="status status--<?= $invite->status ?>"><?= $this->trans('tl_member_invite.statuses.'.$invite->status) ?></span></td>
+          <td class="link"><?php if ($invite->link): ?><a class="link" href="<?= $invite->link ?>"><?= $this->trans('MSC.inviteAgain') ?></a><?php endif; ?></td>
         </tr>
       <?php endforeach; ?>
      </tbody>
