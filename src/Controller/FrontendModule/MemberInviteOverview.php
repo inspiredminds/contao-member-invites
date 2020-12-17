@@ -14,7 +14,9 @@ namespace InspiredMinds\ContaoMemberInvites\Controller\FrontendModule;
 
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
 use Contao\CoreBundle\ServiceAnnotation\FrontendModule;
+use Contao\Date;
 use Contao\FrontendUser;
+use Contao\MemberModel;
 use Contao\ModuleModel;
 use Contao\System;
 use Contao\Template;
@@ -49,44 +51,37 @@ class MemberInviteOverview extends AbstractFrontendModuleController
             return new Response();
         }
 
-        $invites = $this->db
-            ->executeQuery(
-                'SELECT firstname, lastname, email, SUM(count) AS count, member, status FROM tl_member_invite WHERE member = 0 GROUP BY email'
-            )
-            ->fetchAll()
-        ;
+        $inviteCollection = MemberInviteModel::findAll(['order' => 'date_invited DESC']);
 
-        if (empty($invites)) {
+        if (null === $inviteCollection) {
             return new Response();
+        }
+
+        $groupedInvites = [];
+
+        global $objPage;
+
+        foreach ($inviteCollection as $invite) {
+            if (!isset($groupedInvites[$invite->email])) {
+                $groupedInvites[$invite->email] = (object) ['invites' => [], 'count' => 0];
+            }
+
+            $record = (object) $invite->row();
+            $record->inviter = MemberModel::findById($record->pid);
+
+            $record->date_invited = Date::parse($objPage->datimFormat, $invite->date_invited);
+            $record->date_accepted = Date::parse($objPage->datimFormat, $invite->date_accepted);
+            $record->date_expire = Date::parse($objPage->datimFormat, $invite->date_expire);
+
+            $record->model = $invite;
+
+            $groupedInvites[$invite->email]->invites[] = $record;
+            $groupedInvites[$invite->email]->count += $invite->count;
         }
 
         System::loadLanguageFile('tl_member_invite');
 
-        $records = [];
-
-        /** @var MemberInviteModel $invite */
-        foreach ($invites as $invite) {
-            $record = (object) $invite;
-
-            $inviters = $this->db
-                ->executeQuery(
-                    'SELECT pid AS id, SUM(count) AS count FROM tl_member_invite WHERE email = ? GROUP BY pid', [$record->email]
-                )
-                ->fetchAll()
-            ;
-
-            if (\is_array($inviters)) {
-                $inviters = array_map(function ($e) {
-                    return (object) $e;
-                }, $inviters);
-            }
-
-            $record->inviters = $inviters ?: [];
-            $record->status = MemberInviteModel::STATUS_OTHER === $record->status ? MemberInviteModel::STATUS_ACCEPTED : $record->status;
-            $records[] = $record;
-        }
-
-        $template->invites = $records;
+        $template->groupedInvites = $groupedInvites;
 
         return $template->getResponse();
     }

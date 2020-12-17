@@ -2,7 +2,7 @@
 
 <?php $this->block('content'); ?>
 
-  <?php if ($this->invites): ?>
+  <?php if ($this->groupedInvites): ?>
     <table>
      <thead>
        <tr>
@@ -11,25 +11,34 @@
         <th class="lastname"><span class="lastname"><?= $this->trans('tl_member_invite.lastname.0') ?></span></th>
         <th class="email"><span class="email"><?= $this->trans('tl_member_invite.email.0') ?></span></th>
         <th class="count"><span class="count"><?= $this->trans('tl_member_invite.count.0') ?></span></th>
+        <th class="date"><span class="date"><?= $this->trans('tl_member_invite.date_invited.0') ?></span></th>
         <th class="status"><span class="status"><?= $this->trans('tl_member_invite.status.0') ?></span></th>
        </tr>
      </thead>
      <tbody>
-      <?php foreach ($this->invites as $invite): ?>
-        <tr>
-          <td class="inviters">
-            <ul class="inviters">
-              <?php foreach ($invite->inviters as $inviter): ?>
-                <li>#<?= $inviter->id ?> (<?= $inviter->count ?>)</li>
-              <?php endforeach; ?>
-            </ul>
-          </td>
-          <td class="firstname"><span class="firstname"><?= $invite->firstname ?></span></td>
-          <td class="lastname"><span class="lastname"><?= $invite->lastname ?></span></td>
-          <td class="email"><span class="email"><?= $invite->email ?></span></td>
-          <td class="count"><span class="count"><?= $invite->count ?></span></td>
-          <td class="status"><span class="status status--<?= $invite->status ?>"><?= $this->trans('tl_member_invite.statuses.'.$invite->status) ?></span></td>
-        </tr>
+      <?php $isFirstGroup = true; ?>
+      <?php foreach ($this->groupedInvites as $email => $groupedInvite): ?>
+        <?php if (!$isFirstGroup): ?>
+          <tr class="separator">
+            <td class="separator" colspan="7"><span class="separator"></span></td>
+          </tr>
+        <?php endif; ?>
+        <?php $isFirstInvite = true; ?>
+        <?php foreach ($groupedInvite->invites as $invite): ?>
+          <tr>
+            <td class="inviters"><span class="inviters"><?= $invite->inviter->username ?> (<?= $invite->count ?>)</span></td>
+            <td class="firstname"><span class="firstname"><?= $invite->firstname ?></span></td>
+            <td class="lastname"><span class="lastname"><?= $invite->lastname ?></span></td>
+            <?php if ($isFirstInvite): ?>
+              <td class="email" rowspan="<?= count($groupedInvite->invites) ?>"><span class="email"><?= $email ?></span></td>
+              <td class="count" rowspan="<?= count($groupedInvite->invites) ?>"><span class="count"><?= $groupedInvite->count ?></span></td>
+            <?php endif; ?>
+            <td class="date"><span class="date"><?= $invite->date_invited ?></span></td>
+            <td class="status"><span class="status status--<?= $invite->status ?>"><?= $this->trans('tl_member_invite.statuses.'.$invite->status) ?></span></td>
+          </tr>
+          <?php $isFirstInvite = false; ?>
+        <?php endforeach; ?>
+        <?php $isFirstGroup = false; ?>
       <?php endforeach; ?>
      </tbody>
     </table>
