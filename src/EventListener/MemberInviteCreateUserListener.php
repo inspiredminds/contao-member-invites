@@ -75,6 +75,7 @@ class MemberInviteCreateUserListener
 
     private function isInviteRegistrationModule(Module $module): bool
     {
-        return null !== ModuleModel::findOneBy(['type = ?', 'member_invite_registration_module = ?'], [MemberInviteAcceptController::TYPE, (int) $module->id]);
+        $t = ModuleModel::getTable();
+        return null !== ModuleModel::findOneBy(["$t.type = ?", "$t.member_invite_registration_module = ?"], [MemberInviteAcceptController::TYPE, (int) $module->id]);
     }
 }
