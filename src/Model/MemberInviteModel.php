@@ -58,7 +58,7 @@ class MemberInviteModel extends Model
         }
 
         // Expire the invite
-        $this->status = MemberInviteModel::STATUS_EXPIRED;
+        $this->status = self::STATUS_EXPIRED;
         $this->tstamp = time();
 
         return $this;
