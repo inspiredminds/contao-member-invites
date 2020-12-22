@@ -23,7 +23,6 @@ use InspiredMinds\ContaoMemberInvites\Model\MemberInviteModel;
 $GLOBALS['TL_DCA']['tl_member_invite'] = [
     'config' => [
         'dataContainer' => 'Table',
-        'ptable' => 'tl_member',
         'notEditable' => true,
         'notDeletable' => true,
         'notCopyable' => true,
@@ -37,15 +36,14 @@ $GLOBALS['TL_DCA']['tl_member_invite'] = [
     ],
     'list' => [
         'sorting' => [
-            'mode' => 4,
+            'mode' => 2,
             'flag' => 12,
-            'headerFields' => ['firstname', 'lastname'],
-            'panelLayout' => 'filter;limit',
+            'panelLayout' => 'filter;sort,search,limit',
             'fields' => ['date_invited'],
         ],
         'label' => [
-            'fields' => ['firstname', 'lastname', 'email'],
-            'format' => '%s %s <%s>',
+            'fields' => ['icon', 'firstname', 'lastname', 'email'],
+            'showColumns' => true,
         ],
         'operations' => [
             'show' => [
@@ -62,6 +60,7 @@ $GLOBALS['TL_DCA']['tl_member_invite'] = [
             'sql' => ['type' => 'integer', 'unsigned' => true, 'default' => 0],
         ],
         'pid' => [
+            'filter' => true,
             'foreignKey' => 'tl_member.CONCAT(firstname," ",lastname)',
             'sql' => ['type' => 'integer', 'unsigned' => true, 'default' => 0],
             'relation' => ['type' => 'belongsTo', 'load' => 'lazy'],

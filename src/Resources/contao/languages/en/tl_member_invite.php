@@ -15,6 +15,7 @@ use InspiredMinds\ContaoMemberInvites\Model\MemberInviteModel;
 
 System::loadLanguageFile('tl_member');
 
+$GLOBALS['TL_LANG']['tl_member_invite']['pid'] = ['Member', 'The member who created the invite.'];
 $GLOBALS['TL_LANG']['tl_member_invite']['email'] = &$GLOBALS['TL_LANG']['tl_member']['email'];
 $GLOBALS['TL_LANG']['tl_member_invite']['firstname'] = &$GLOBALS['TL_LANG']['tl_member']['firstname'];
 $GLOBALS['TL_LANG']['tl_member_invite']['lastname'] = &$GLOBALS['TL_LANG']['tl_member']['lastname'];
@@ -29,5 +30,5 @@ $GLOBALS['TL_LANG']['tl_member_invite']['statuses'][MemberInviteModel::STATUS_AC
 $GLOBALS['TL_LANG']['tl_member_invite']['statuses'][MemberInviteModel::STATUS_OTHER] = 'Accepted from other sender';
 $GLOBALS['TL_LANG']['tl_member_invite']['statuses'][MemberInviteModel::STATUS_EXPIRED] = 'Expired';
 $GLOBALS['TL_LANG']['tl_member_invite']['statuses'][MemberInviteModel::STATUS_REQUESTED] = 'Requested';
-$GLOBALS['TL_LANG']['tl_member_invite']['member'] = ['Member', 'Invited member.'];
+$GLOBALS['TL_LANG']['tl_member_invite']['member'] = ['Invited member', 'The member this invite was created for.'];
 $GLOBALS['TL_LANG']['tl_member_invite']['count'] = ['Count', 'Invite count.'];

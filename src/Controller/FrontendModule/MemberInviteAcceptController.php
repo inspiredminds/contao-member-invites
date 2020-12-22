@@ -117,15 +117,17 @@ class MemberInviteAcceptController extends AbstractFrontendModuleController
 
     private function expireInvite(MemberInviteModel $invite, Request $request): void
     {
+        // Do not expire invites during POST requests
+        if ($request->isMethod(Request::METHOD_POST)) {
+            return;
+        }
+
         // Only invites that are sent or requested can be expired
         if (!\in_array($invite->status, [MemberInviteModel::STATUS_INVITED, MemberInviteModel::STATUS_REQUESTED], true)) {
             return;
         }
 
-        // Do not expire invites during POST requests
-        if ($request->isMethod(Request::METHOD_POST)) {
-            return;
-        }
+
 
         // Check if invite is actually expired
         if (time() < $invite->date_expire) {
@@ -133,8 +135,7 @@ class MemberInviteAcceptController extends AbstractFrontendModuleController
         }
 
         // Expire the invite
-        $invite->status = MemberInviteModel::STATUS_EXPIRED;
-        $invite->tstamp = time();
+        $invite->expire();
         $invite->save();
     }
 

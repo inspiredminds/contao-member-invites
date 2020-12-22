@@ -10,4 +10,4 @@ declare(strict_types=1);
  * @license LGPL-3.0-or-later
  */
 
-$GLOBALS['TL_LANG']['tl_member']['invites'] = 'Die Einladungen des Mitglieds mit der ID %s zeigen.';
+$GLOBALS['TL_LANG']['tl_member']['invites'] = 'Einladungen';

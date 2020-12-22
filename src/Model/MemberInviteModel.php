@@ -41,6 +41,29 @@ class MemberInviteModel extends Model
 
     protected static $strTable = 'tl_member_invite';
 
+    /**
+     * Updates the status of the invite according to the expiration.
+     * Note: does not save automatically.
+     */
+    public function expire(): self
+    {
+        // Only invites that are sent or requested can be expired
+        if (!\in_array($this->status, [self::STATUS_INVITED, self::STATUS_REQUESTED], true)) {
+            return $this;
+        }
+
+        // Check if invite is actually expired
+        if (time() < $this->date_expire) {
+            return $this;
+        }
+
+        // Expire the invite
+        $this->status = MemberInviteModel::STATUS_EXPIRED;
+        $this->tstamp = time();
+
+        return $this;
+    }
+
     public function canResend(): bool
     {
         if (\in_array($this->status, [self::STATUS_ACCEPTED, self::STATUS_OTHER], true)) {
