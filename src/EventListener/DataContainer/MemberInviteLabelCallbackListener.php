@@ -55,6 +55,6 @@ class MemberInviteLabelCallbackListener
             case MemberInviteModel::STATUS_EXPIRED: $icon = 'x.svg'; break;
         }
 
-        return 'bundles/contaomemberinvites/'.$icon; 
+        return 'bundles/contaomemberinvites/'.$icon;
     }
 }

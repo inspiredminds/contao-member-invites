@@ -127,8 +127,6 @@ class MemberInviteAcceptController extends AbstractFrontendModuleController
             return;
         }
 
-
-
         // Check if invite is actually expired
         if (time() < $invite->date_expire) {
             return;
