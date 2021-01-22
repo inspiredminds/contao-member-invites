@@ -11,6 +11,7 @@ declare(strict_types=1);
  */
 
 $GLOBALS['TL_LANG']['tl_module']['member_invite_expiration'] = ['Invite expiration', 'Invites expire after the defined amount of time.'];
+$GLOBALS['TL_LANG']['tl_module']['member_invite_require_link_token'] = ['Require ##invite_link## token in message', 'Requires the ##invite_link## token to be present within the invite message.'];
 $GLOBALS['TL_LANG']['tl_module']['member_invite_expiration_durations']['+1 day'] = '1 day';
 $GLOBALS['TL_LANG']['tl_module']['member_invite_expiration_durations']['+7 days'] = '7 days';
 $GLOBALS['TL_LANG']['tl_module']['member_invite_expiration_durations']['+30 days'] = '30 days';

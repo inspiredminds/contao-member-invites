@@ -19,3 +19,4 @@ $GLOBALS['TL_LANG']['MSC']['requestInvite'] = 'Einladung anfordern';
 $GLOBALS['TL_LANG']['MSC']['inviteLinkRequestSent'] = 'Die Anfrage für eine neue Einladung wurde gesendet.';
 $GLOBALS['TL_LANG']['MSC']['inviteAgain'] = 'Erneut einladen Invite again';
 $GLOBALS['TL_LANG']['MSC']['inviters'] = 'Einlader';
+$GLOBALS['TL_LANG']['ERR']['inviteLinkTokenMissing'] = 'Im Einladungstext fehlte der ##invite_link## Token.';

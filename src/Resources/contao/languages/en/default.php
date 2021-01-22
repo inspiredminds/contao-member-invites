@@ -19,3 +19,4 @@ $GLOBALS['TL_LANG']['MSC']['requestInvite'] = 'Request invite';
 $GLOBALS['TL_LANG']['MSC']['inviteLinkRequestSent'] = 'The invite link request has been sent.';
 $GLOBALS['TL_LANG']['MSC']['inviteAgain'] = 'Invite again';
 $GLOBALS['TL_LANG']['MSC']['inviters'] = 'Inviters';
+$GLOBALS['TL_LANG']['ERR']['inviteLinkTokenMissing'] = 'The ##invite_link## token was missing in the invite message.';

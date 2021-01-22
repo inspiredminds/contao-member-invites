@@ -27,6 +27,13 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['member_invite_expiration'] = [
     'sql' => ['type' => 'string', 'length' => 16, 'default' => '+30 days'],
 ];
 
+$GLOBALS['TL_DCA']['tl_module']['fields']['member_invite_require_link_token'] = [
+    'exclude' => true,
+    'inputType' => 'checkbox',
+    'eval' => ['tl_class' => 'w50'],
+    'sql' => ['type' => 'boolean', 'default' => false],
+];
+
 $GLOBALS['TL_DCA']['tl_module']['fields']['member_invite_registration_module'] = [
     'exclude' => true,
     'inputType' => 'select',
@@ -36,7 +43,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['member_invite_registration_module'] =
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['palettes'][MemberInviteFormController::TYPE] =
-    '{title_legend},name,headline,type;{config_legend},nc_notification,member_invite_expiration;{redirect_legend},jumpTo;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
+    '{title_legend},name,headline,type;{config_legend},nc_notification,member_invite_expiration,member_invite_require_link_token;{redirect_legend},jumpTo;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
 ;
 
 $GLOBALS['TL_DCA']['tl_module']['palettes'][MemberInviteAcceptController::TYPE] =

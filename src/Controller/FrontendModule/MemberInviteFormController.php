@@ -12,12 +12,14 @@ declare(strict_types=1);
 
 namespace InspiredMinds\ContaoMemberInvites\Controller\FrontendModule;
 
+use Contao\Controller;
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
 use Contao\CoreBundle\Exception\AccessDeniedException;
 use Contao\CoreBundle\ServiceAnnotation\FrontendModule;
 use Contao\FrontendUser;
 use Contao\ModuleModel;
 use Contao\PageModel;
+use Contao\StringUtil;
 use Contao\System;
 use Contao\Template;
 use Contao\Widget;
@@ -70,6 +72,8 @@ class MemberInviteFormController extends AbstractFrontendModuleController
 
         // Load language file before creating a model instance (see https://github.com/contao/contao/pull/2536)
         System::loadLanguageFile('tl_member_invite');
+        System::loadLanguageFile('tl_module');
+        Controller::loadDataContainer('tl_module');
 
         if ($request->query->has('resend')) {
             $invite = MemberInviteModel::findById((int) $request->query->get('resend'));
@@ -105,6 +109,12 @@ class MemberInviteFormController extends AbstractFrontendModuleController
             return $config['eval']['feEditable'] ?? false;
         });
 
+        $expirationDca = $GLOBALS['TL_DCA']['tl_module']['fields']['member_invite_expiration'];
+        $expirationDca['default'] = $model->member_invite_expiration;
+        $expirationDca['ignoreModelValue'] = true;
+
+        $form->addFormField('expiration', $expirationDca);
+
         $form->addSubmitFormField('submit', $this->translator->trans('MSC.sendInvite', [], 'contao_default'));
 
         // Do not allow to send invitations to the same email again
@@ -119,6 +129,19 @@ class MemberInviteFormController extends AbstractFrontendModuleController
 
             return $value;
         });
+
+        // Require ##invite_link## token
+        if ($model->member_invite_require_link_token) {
+            $form->addValidator('message', function ($value, Widget $widget, Form $form) {
+                if (false === strpos(StringUtil::decodeEntities($value), '##invite_link##')) {
+                    $widget->value .= "\n\n##invite_link##";
+
+                    throw new \Exception($this->translator->trans('ERR.inviteLinkTokenMissing', [], 'contao_default'));
+                }
+
+                return $value;
+            });
+        }
 
         $this->eventDispatcher->dispatch(new ModifyMemberInviteFormEvent($form, $model));
 
@@ -135,7 +158,7 @@ class MemberInviteFormController extends AbstractFrontendModuleController
             $invite->tstamp = time();
             $invite->date_invited = time();
             $invite->status = MemberInviteModel::STATUS_INVITED;
-            $invite->date_expire = strtotime($model->member_invite_expiration);
+            $invite->date_expire = strtotime($form->fetch('expiration'));
             $invite->uuid = Uuid::uuid4()->toString();
             $invite->count = (int) $invite->count + 1;
 
