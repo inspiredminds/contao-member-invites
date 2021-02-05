@@ -96,7 +96,7 @@ class MemberInviteFormController extends AbstractFrontendModuleController
 
         $form->bindModel($invite);
 
-        $form->addFieldsFromDca('tl_member_invite', function (string $field, array &$config) use ($isResend) {
+        $form->addFieldsFromDca('tl_member_invite', function (string $field, array &$config) use ($isResend, $member) {
             // Set email field to readonly in resend mode
             if ($isResend && 'email' === $field) {
                 $config['eval']['readonly'] = true;
@@ -104,6 +104,13 @@ class MemberInviteFormController extends AbstractFrontendModuleController
 
             if (!$isResend) {
                 $config['ignoreModelValue'] = true;
+            }
+
+            // Transform default value for message
+            if ('message' === $field && !empty($config['default'])) {
+                $tokens = [];
+                HasteStringUtil::flatten($member->getData(), 'member', $tokens);
+                $config['default'] = HasteStringUtil::recursiveReplaceTokensAndTags($config['default'], $tokens);
             }
 
             return $config['eval']['feEditable'] ?? false;
@@ -189,6 +196,9 @@ class MemberInviteFormController extends AbstractFrontendModuleController
         }
 
         $template->form = $form->generate();
+
+        // Add JavaScript
+        $GLOBALS['TL_BODY'][] = Template::generateScriptTag('bundles/contaomemberinvites/replace-message-tokens.js', true, null);
 
         return $template->getResponse();
     }
