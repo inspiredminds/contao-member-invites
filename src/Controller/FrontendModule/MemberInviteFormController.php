@@ -29,8 +29,10 @@ use InspiredMinds\ContaoMemberInvites\Event\ModifyMemberInviteFormEvent;
 use InspiredMinds\ContaoMemberInvites\Model\MemberInviteModel;
 use NotificationCenter\Model\Notification;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -43,15 +45,19 @@ class MemberInviteFormController extends AbstractFrontendModuleController
 {
     public const TYPE = 'member_invite_form';
 
+    private const SESSION_MESSAGE_KEY = 'member-invite-form-message';
+
     private $translator;
     private $security;
     private $eventDispatcher;
+    private $session;
 
-    public function __construct(TranslatorInterface $translator, Security $security, EventDispatcherInterface $eventDispatcher)
+    public function __construct(TranslatorInterface $translator, Security $security, EventDispatcherInterface $eventDispatcher, SessionInterface $session)
     {
         $this->translator = $translator;
         $this->security = $security;
         $this->eventDispatcher = $eventDispatcher;
+        $this->session = $session;
     }
 
     protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
@@ -183,22 +189,23 @@ class MemberInviteFormController extends AbstractFrontendModuleController
 
                 $notification->send($tokens);
 
-                $template->message = $this->translator->trans('MSC.memberInviteSent', [], 'contao_default');
+                $this->session->set(self::SESSION_MESSAGE_KEY, $this->translator->trans('MSC.memberInviteSent', [], 'contao_default'));
             } else {
-                $template->message = $this->translator->trans('MSC.memberInviteCreated', [], 'contao_default');
+                $this->session->set(self::SESSION_MESSAGE_KEY, $this->translator->trans('MSC.memberInviteCreated', [], 'contao_default'));
             }
 
-            // Reset the form
-            foreach ($form->getWidgets() as $widget) {
-                $widget->value = null;
-                $widget->readonly = false;
-            }
+            return new RedirectResponse($request->getUri(), Response::HTTP_SEE_OTHER);
         }
 
         $template->form = $form->generate();
 
         // Add JavaScript
         $GLOBALS['TL_BODY'][] = Template::generateScriptTag('bundles/contaomemberinvites/replace-message-tokens.js', true, null);
+
+        if ($this->session->has(self::SESSION_MESSAGE_KEY)) {
+            $template->message = $this->session->get(self::SESSION_MESSAGE_KEY);
+            $this->session->remove(self::SESSION_MESSAGE_KEY);
+        }
 
         return $template->getResponse();
     }
