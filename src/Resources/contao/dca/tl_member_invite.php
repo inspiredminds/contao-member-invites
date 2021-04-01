@@ -92,7 +92,7 @@ $GLOBALS['TL_DCA']['tl_member_invite'] = [
         'message' => [
             'exclude' => true,
             'inputType' => 'textarea',
-            'eval' => ['tl_class' => 'clr', 'maxlength' => 4096, 'feEditable' => true],
+            'eval' => ['tl_class' => 'clr', 'maxlength' => 4096, 'feEditable' => true, 'decodeEntities' => true],
             'sql' => ['type' => 'text', 'notnull' => false],
         ],
         'date_invited' => [
