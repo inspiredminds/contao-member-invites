@@ -83,10 +83,10 @@ class MemberInviteTable extends AbstractFrontendModuleController
     private function getInviteCount(MemberInviteModel $invite): int
     {
         if ($invite->member) {
-            return (int) $this->db->executeQuery('SELECT SUM(`count`) FROM tl_member_invite WHERE member = ?', [(int) $invite->member])->fetchColumn();
+            return (int) $this->db->executeQuery('SELECT SUM(`count`) FROM tl_member_invite WHERE member = ?', [(int) $invite->member])->fetchOne();
         }
 
-        return (int) $this->db->executeQuery('SELECT SUM(`count`) FROM tl_member_invite WHERE email = ?', [$invite->email])->fetchColumn();
+        return (int) $this->db->executeQuery('SELECT SUM(`count`) FROM tl_member_invite WHERE email = ?', [$invite->email])->fetchOne();
     }
 
     private function getInviteLink(ModuleModel $module, MemberInviteModel $invite): ?string
