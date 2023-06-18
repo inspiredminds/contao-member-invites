@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace InspiredMinds\ContaoMemberInvites\Controller\FrontendModule;
 
+use Codefog\HasteBundle\Form\Form;
+use Codefog\HasteBundle\StringParser;
 use Contao\Controller;
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
 use Contao\CoreBundle\Exception\AccessDeniedException;
@@ -23,8 +25,6 @@ use Contao\StringUtil;
 use Contao\System;
 use Contao\Template;
 use Contao\Widget;
-use Haste\Form\Form;
-use Haste\Util\StringUtil as HasteStringUtil;
 use InspiredMinds\ContaoMemberInvites\Event\ModifyMemberInviteFormEvent;
 use InspiredMinds\ContaoMemberInvites\Model\MemberInviteModel;
 use NotificationCenter\Model\Notification;
@@ -39,7 +39,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @FrontendModule(MemberInviteFormController::TYPE, category="memberinvites")
+ * @FrontendModule(MemberInviteFormController::TYPE, category="memberinvites", template="mod_member_invite_form")
  */
 class MemberInviteFormController extends AbstractFrontendModuleController
 {
@@ -60,7 +60,7 @@ class MemberInviteFormController extends AbstractFrontendModuleController
         $this->session = $session;
     }
 
-    protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
+    protected function getResponse(Template $template, ModuleModel $model, Request $request): Response
     {
         $member = $this->security->getUser();
 
@@ -75,6 +75,7 @@ class MemberInviteFormController extends AbstractFrontendModuleController
         $invite = null;
         $isResend = false;
         $email = null;
+        $stringParser = new StringParser();
 
         // Load language file before creating a model instance (see https://github.com/contao/contao/pull/2536)
         System::loadLanguageFile('tl_member_invite');
@@ -100,9 +101,9 @@ class MemberInviteFormController extends AbstractFrontendModuleController
             $email = $invite->email;
         }
 
-        $form->bindModel($invite);
+        $form->setBoundModel($invite);
 
-        $form->addFieldsFromDca('tl_member_invite', function (string $field, array &$config) use ($isResend, $member) {
+        $form->addFieldsFromDca('tl_member_invite', function (string $field, array &$config) use ($isResend, $member, $stringParser) {
             // Set email field to readonly in resend mode
             if ($isResend && 'email' === $field) {
                 $config['eval']['readonly'] = true;
@@ -115,8 +116,8 @@ class MemberInviteFormController extends AbstractFrontendModuleController
             // Transform default value for message
             if ('message' === $field && !empty($config['default'])) {
                 $tokens = [];
-                HasteStringUtil::flatten($member->getData(), 'member', $tokens);
-                $config['default'] = HasteStringUtil::recursiveReplaceTokensAndTags($config['default'], $tokens);
+                $stringParser->flatten($member->getData(), 'member', $tokens);
+                $config['default'] = $stringParser->recursiveReplaceTokensAndTags($config['default'], $tokens);
             }
 
             return $config['eval']['feEditable'] ?? false;
@@ -146,7 +147,7 @@ class MemberInviteFormController extends AbstractFrontendModuleController
         // Require ##invite_link## token
         if ($model->member_invite_require_link_token) {
             $form->addValidator('message', function ($value, Widget $widget, Form $form) {
-                if (false === strpos(StringUtil::decodeEntities($value), '##invite_link##')) {
+                if (!str_contains(StringUtil::decodeEntities($value), '##invite_link##')) {
                     $widget->value .= "\n\n##invite_link##";
 
                     throw new \Exception($this->translator->trans('ERR.inviteLinkTokenMissing', [], 'contao_default'));
@@ -184,8 +185,8 @@ class MemberInviteFormController extends AbstractFrontendModuleController
                     'admin_email' => $GLOBALS['TL_ADMIN_EMAIL'],
                 ];
 
-                HasteStringUtil::flatten($member->getData(), 'member', $tokens);
-                HasteStringUtil::flatten($invite->row(), 'invite', $tokens);
+                $stringParser->flatten($member->getData(), 'member', $tokens);
+                $stringParser->flatten($invite->row(), 'invite', $tokens);
 
                 $notification->send($tokens);
 

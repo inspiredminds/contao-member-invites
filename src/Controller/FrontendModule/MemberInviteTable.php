@@ -27,7 +27,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * @FrontendModule(MemberInviteTable::TYPE, category="memberinvites")
+ * @FrontendModule(MemberInviteTable::TYPE, category="memberinvites", template="mod_member_invite_table")
  */
 class MemberInviteTable extends AbstractFrontendModuleController
 {
@@ -43,7 +43,7 @@ class MemberInviteTable extends AbstractFrontendModuleController
         $this->db = $db;
     }
 
-    protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
+    protected function getResponse(Template $template, ModuleModel $model, Request $request): Response
     {
         $user = $this->security->getUser();
 

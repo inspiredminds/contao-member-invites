@@ -23,10 +23,11 @@
         }
     ],
     "require": {
-        "php": "^7.2 || ^8.0",
-        "contao/core-bundle": "^4.9",
-        "codefog/contao-haste": "^4.24",
+        "php": "^7.4 || ^8.0",
+        "contao/core-bundle": "^4.9 || ^5.0",
+        "codefog/contao-haste": "^5.0",
         "ramsey/uuid": "^3.0 || ^4.0",
+        "symfony/polyfill-php80": "^1.26",
         "terminal42/notification_center": "^1.5"
     },
     "autoload": {
@@ -38,6 +39,14 @@
         "contao-manager-plugin": "InspiredMinds\\ContaoMemberInvites\\ContaoManager\\Plugin"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16"
+        "friendsofphp/php-cs-fixer": "^2.16 || ^3.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "contao-community-alliance/composer-plugin": true,
+            "contao-components/installer": true,
+            "php-http/discovery": false
+        },
+        "sort-packages": true
     }
 }

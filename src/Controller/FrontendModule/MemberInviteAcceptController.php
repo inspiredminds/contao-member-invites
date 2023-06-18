@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace InspiredMinds\ContaoMemberInvites\Controller\FrontendModule;
 
+use Codefog\HasteBundle\Form\Form;
+use Codefog\HasteBundle\StringParser;
 use Contao\Controller;
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
 use Contao\CoreBundle\ServiceAnnotation\FrontendModule;
@@ -19,8 +21,6 @@ use Contao\MemberModel;
 use Contao\ModuleModel;
 use Contao\PageModel;
 use Contao\Template;
-use Haste\Form\Form;
-use Haste\Util\StringUtil as HasteStringUtil;
 use InspiredMinds\ContaoMemberInvites\Model\MemberInviteModel;
 use NotificationCenter\Model\Notification;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @FrontendModule(MemberInviteAcceptController::TYPE, category="memberinvites")
+ * @FrontendModule(MemberInviteAcceptController::TYPE, category="memberinvites", template="mod_member_invite_accept")
  */
 class MemberInviteAcceptController extends AbstractFrontendModuleController
 {
@@ -41,7 +41,7 @@ class MemberInviteAcceptController extends AbstractFrontendModuleController
         $this->translator = $translator;
     }
 
-    protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
+    protected function getResponse(Template $template, ModuleModel $model, Request $request): Response
     {
         $uuid = $request->query->get('invite');
 
@@ -82,8 +82,9 @@ class MemberInviteAcceptController extends AbstractFrontendModuleController
 
                     $member = MemberModel::findByPk((int) $invite->pid);
 
-                    HasteStringUtil::flatten($member->row(), 'member', $tokens);
-                    HasteStringUtil::flatten($invite->row(), 'invite', $tokens);
+                    $stringParser = new StringParser();
+                    $stringParser->flatten($member->row(), 'member', $tokens);
+                    $stringParser->flatten($invite->row(), 'invite', $tokens);
 
                     $notification->send($tokens);
                 }

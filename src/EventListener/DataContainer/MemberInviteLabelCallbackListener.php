@@ -50,9 +50,12 @@ class MemberInviteLabelCallbackListener
         $icon = 'clock.svg';
 
         switch ($invite->status) {
-            case MemberInviteModel::STATUS_ACCEPTED: $icon = 'user-check.svg'; break;
-            case MemberInviteModel::STATUS_OTHER: $icon = 'check.svg'; break;
-            case MemberInviteModel::STATUS_EXPIRED: $icon = 'x.svg'; break;
+            case MemberInviteModel::STATUS_ACCEPTED: $icon = 'user-check.svg';
+            break;
+            case MemberInviteModel::STATUS_OTHER: $icon = 'check.svg';
+            break;
+            case MemberInviteModel::STATUS_EXPIRED: $icon = 'x.svg';
+            break;
         }
 
         return 'bundles/contaomemberinvites/'.$icon;

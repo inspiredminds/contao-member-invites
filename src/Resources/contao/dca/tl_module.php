@@ -43,17 +43,13 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['member_invite_registration_module'] =
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['palettes'][MemberInviteFormController::TYPE] =
-    '{title_legend},name,headline,type;{config_legend},nc_notification,member_invite_expiration,member_invite_require_link_token;{redirect_legend},jumpTo;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
-;
+    '{title_legend},name,headline,type;{config_legend},nc_notification,member_invite_expiration,member_invite_require_link_token;{redirect_legend},jumpTo;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
 $GLOBALS['TL_DCA']['tl_module']['palettes'][MemberInviteAcceptController::TYPE] =
-    '{title_legend},name,headline,type;{config_legend},nc_notification,member_invite_registration_module;{redirect_legend},jumpTo;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
-;
+    '{title_legend},name,headline,type;{config_legend},nc_notification,member_invite_registration_module;{redirect_legend},jumpTo;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
 $GLOBALS['TL_DCA']['tl_module']['palettes'][MemberInviteTable::TYPE] =
-    '{title_legend},name,headline,type;{redirect_legend},jumpTo;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
-;
+    '{title_legend},name,headline,type;{redirect_legend},jumpTo;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
 $GLOBALS['TL_DCA']['tl_module']['palettes'][MemberInviteOverview::TYPE] =
-    '{title_legend},name,headline,type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
-;
+    '{title_legend},name,headline,type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';

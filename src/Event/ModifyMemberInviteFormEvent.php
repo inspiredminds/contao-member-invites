@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace InspiredMinds\ContaoMemberInvites\Event;
 
+use Codefog\HasteBundle\Form\Form;
 use Contao\ModuleModel;
-use Haste\Form\Form;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class ModifyMemberInviteFormEvent extends Event
